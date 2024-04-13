@@ -28,7 +28,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "postcss.config.js",
-    "next.config.js"
-  ],
+    "next.config.mjs"
+, "components/Mapbox.js"  ],
   "exclude": ["node_modules"]
 }

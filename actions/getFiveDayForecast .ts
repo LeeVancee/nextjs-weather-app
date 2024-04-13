@@ -1,4 +1,4 @@
-export const getAirPollutionData = async ({
+export const getFiveDayForecast = async ({
   lat,
   lon,
 }: {
@@ -7,7 +7,7 @@ export const getAirPollutionData = async ({
 }) => {
   try {
     const data = await fetch(
-      `http://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${process.env.NEXT_PUBLIC_OPEN_WEATHER_API_KEY}`
+      `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${process.env.NEXT_PUBLIC_OPEN_WEATHER_API_KEY}`
     )
 
     return data.json()

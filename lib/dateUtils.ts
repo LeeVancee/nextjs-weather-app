@@ -25,3 +25,7 @@ export function formatSunTimeWithAMPM(
   }).format(date)
   return formattedTime
 }
+
+export function kelvinToCelsius(kelvin: number) {
+  return Math.floor(kelvin - 273.15)
+}

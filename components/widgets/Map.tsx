@@ -16,7 +16,7 @@ import { DEFAULT_LOCATION } from "@/lib/config"
 import { useTheme } from "next-themes"
 
 const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN
-const OPENWEATHERMAP_TOKEN = process.env.NEXT_PUBLIC_OPEN_WEATHER_API_KEY
+const OPENWEATHERMAP_TOKEN = "3e4be8c4dd9fa225551735e555eb7028"
 
 export default function Map() {
   const { theme } = useTheme()
@@ -113,9 +113,9 @@ export default function Map() {
           key={MapCode}
           id="weatherSource"
           type="raster"
-          tiles={[
+          /* tiles={[
             `https://maps.openweathermap.org/maps/2.0/weather/${MapCode}/{z}/{x}/{y}?appid=${OPENWEATHERMAP_TOKEN}`,
-          ]}
+          ]} */
           tileSize={256}
         >
           <Layer {...weatherLayer} />

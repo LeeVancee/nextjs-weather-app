@@ -28,7 +28,7 @@ export default function Clock({ initial, timezone }: ClockProps) {
     <div className="tabular-nums">
       {time.toLocaleTimeString("en-US", {
         timeZone: "UTC",
-        hour12: true,
+        hour12: false,
         hour: "numeric",
         minute: "2-digit",
         second: "2-digit",

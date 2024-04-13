@@ -1,10 +1,10 @@
 import { Location } from "./types"
 
 export const DEFAULT_LOCATION: Location = {
-  city: "Copenhagen",
+  city: "Guangzhou",
   coord: {
-    lat: "55.6760968",
-    lon: "12.5683371",
+    lat: "23.1290799",
+    lon: "113.26436",
   },
 }
 

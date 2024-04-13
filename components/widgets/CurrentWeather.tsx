@@ -5,8 +5,8 @@ import { convertToDate } from "@/lib/dateUtils"
 import IconComponent from "../ui/icon-component"
 
 interface CurrentWeatherProps {
-  data: HourlyForecastData
-  city: City
+  data: any
+  city: any
 }
 
 export default function CurrentWeather({ data, city }: CurrentWeatherProps) {
@@ -45,18 +45,18 @@ export default function CurrentWeather({ data, city }: CurrentWeatherProps) {
         </div>
       </div>
       <div className="flex justify-center py-7 text-8xl font-bold md:py-10">
-        {Math.round(data.main.temp)}&deg;
+        {Math.round(data.temp)}&deg;
       </div>
       <div>
         <IconComponent
           weatherCode={data.weather[0].id}
-          x={data.sys.pod}
+          icon={data.weather[0].icon}
           className="h-9 w-9"
         />
-        <div className="font-semibold">{data.weather[0].main}</div>
+        <div className="font-semibold">{data.weather[0].description}</div>
         <div className="flex gap-2 dark:text-neutral-500">
-          <span>H: {Math.round(data.main.temp_max)}&deg;</span>
-          <span>L: {Math.round(data.main.temp_min)}&deg;</span>
+          <span>H: {Math.round(city.main.temp_max)}&deg;</span>
+          <span>L: {Math.round(city.main.temp_min)}&deg;</span>
         </div>
       </div>
     </Card>

@@ -12,10 +12,12 @@ import Compass from "../ui/compass"
 import { formatSunTimeWithAMPM } from "@/lib/dateUtils"
 
 interface WeatherWidgetsProps {
-  data: HourlyForecastData
+  data: any
   airQuality: AirQualityData
   uvIndexForToday: number
-  city: City
+  city?: City
+  timezone: number
+  current: any
 }
 
 export default function WeatherWidgets({
@@ -23,6 +25,8 @@ export default function WeatherWidgets({
   airQuality,
   uvIndexForToday,
   city,
+  timezone,
+  current,
 }: WeatherWidgetsProps) {
   return (
     <>
@@ -66,10 +70,10 @@ export default function WeatherWidgets({
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <p>{formatSunTimeWithAMPM(city.sunset, city.timezone)}</p>
+          <p>{formatSunTimeWithAMPM(current.sunset, timezone)}</p>
         </CardContent>
         <CardFooter>
-          <p>Sunrise: {formatSunTimeWithAMPM(city.sunrise, city.timezone)}</p>
+          <p>Sunrise: {formatSunTimeWithAMPM(current.sunrise, timezone)}</p>
         </CardFooter>
       </Card>
       <Card className="order-4 h-48 xl:order-3">
@@ -110,7 +114,7 @@ export default function WeatherWidgets({
           </CardTitle>
         </CardHeader>
         <CardContent className="flex justify-center p-0">
-          <Compass speed={data.wind.speed} deg={data.wind.deg} />
+          <Compass speed={data.wind_speed} deg={data.wind_deg} />
         </CardContent>
       </Card>
       <Card className="order-5 flex h-48 flex-col justify-between">
@@ -147,10 +151,10 @@ export default function WeatherWidgets({
             {uvIndexForToday <= 2
               ? "Low"
               : uvIndexForToday <= 5
-              ? "Moderate"
-              : uvIndexForToday <= 7
-              ? "High"
-              : "Very High"}
+                ? "Moderate"
+                : uvIndexForToday <= 7
+                  ? "High"
+                  : "Very High"}
           </p>
           <Progress aria-label="UV Index" value={uvIndexForToday * 10} />
         </CardContent>
@@ -159,8 +163,8 @@ export default function WeatherWidgets({
             {uvIndexForToday <= 2
               ? "No protection needed."
               : uvIndexForToday <= 5
-              ? "Wear sunscreen."
-              : "Take precautions."}
+                ? "Wear sunscreen."
+                : "Take precautions."}
           </p>
         </CardFooter>
       </Card>
@@ -250,8 +254,8 @@ export default function WeatherWidgets({
               ? data.rain["1h"] <= 0.2
                 ? "Light rain or drizzle. An umbrella may come in handy."
                 : data.rain["1h"] <= 2.5
-                ? "Moderate rain."
-                : "Heavy rain."
+                  ? "Moderate rain."
+                  : "Heavy rain."
               : "Conditions are dry."}
           </p>
         </CardFooter>
@@ -277,15 +281,15 @@ export default function WeatherWidgets({
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <p>{Math.floor(data.main.feels_like)}&deg;</p>
+          <p>{Math.floor(data.feels_like)}&deg;</p>
         </CardContent>
         <CardFooter>
           <p>
-            {data.main.feels_like < data.main.temp
+            {data.feels_like < data.temp
               ? "Feels colder than the actual temperature."
-              : data.main.feels_like > data.main.temp
-              ? "Feels warmer than the actual temperature."
-              : "Feels like the actual temperature."}
+              : data.feels_like > data.temp
+                ? "Feels warmer than the actual temperature."
+                : "Feels like the actual temperature."}
           </p>
         </CardFooter>
       </Card>
@@ -314,11 +318,11 @@ export default function WeatherWidgets({
         </CardContent>
         <CardFooter>
           <p>
-            {data.main.humidity < 40
+            {data.humidity < 40
               ? "Low humidity. It might feel dry."
-              : data.main.humidity < 70
-              ? "Moderate humidity. Comfortable conditions."
-              : "High humidity. It might feel humid and uncomfortable."}
+              : data.humidity < 70
+                ? "Moderate humidity. Comfortable conditions."
+                : "High humidity. It might feel humid and uncomfortable."}
           </p>
         </CardFooter>
       </Card>
@@ -354,8 +358,8 @@ export default function WeatherWidgets({
             {data.visibility >= 10
               ? "It's perfectly clear right now."
               : data.visibility >= 5
-              ? "Good visibility."
-              : "Poor visibility. Exercise caution while driving or moving around."}
+                ? "Good visibility."
+                : "Poor visibility. Exercise caution while driving or moving around."}
           </p>
         </CardFooter>
       </Card>
@@ -381,15 +385,15 @@ export default function WeatherWidgets({
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <p>{data.main.pressure} hPa</p>
+          <p>{data.pressure} hPa</p>
         </CardContent>
         <CardFooter>
           <p>
-            {data.main.pressure < 1000
+            {data.pressure < 1000
               ? "Low pressure. Expect changes in the weather."
-              : data.main.pressure >= 1000 && data.main.pressure <= 1010
-              ? "Normal pressure. Typical weather conditions."
-              : "High pressure. Expect stable and clear weather."}
+              : data.pressure >= 1000 && data.pressure <= 1010
+                ? "Normal pressure. Typical weather conditions."
+                : "High pressure. Expect stable and clear weather."}
           </p>
         </CardFooter>
       </Card>

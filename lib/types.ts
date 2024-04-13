@@ -197,3 +197,38 @@ export type TenDayForecastData = {
   cnt: number
   list: ForecastData[]
 }
+
+interface EightWeatherData {
+  dt: number // Timestamp in seconds since Unix epoch
+  sunrise: number // Timestamp in seconds since Unix epoch for sunrise
+  sunset: number // Timestamp in seconds since Unix epoch for sunset
+  moonrise?: number // Optional timestamp in seconds since Unix epoch for moonrise (might be missing)
+  moonset?: number // Optional timestamp in seconds since Unix epoch for moonset (might be missing)
+  moon_phase: number // Moon phase value (0-1)
+  summary: string // Brief summary of weather conditions for the day
+  temp: {
+    day: number // Temperature in Kelvin during the day
+    min: number // Minimum temperature in Kelvin
+    max: number // Maximum temperature in Kelvin
+    night: number // Temperature in Kelvin during the night
+    eve: number // Temperature in Kelvin in the evening
+    morn: number // Temperature in Kelvin in the morning
+  }
+  feels_like: {
+    day: number //体感温度 in Kelvin during the day
+    night: number // 体感温度 in Kelvin during the night
+    eve: number // 体感温度 in Kelvin in the evening
+    morn: number // 体感温度 in Kelvin in the morning
+  }
+  pressure: number // Atmospheric pressure in hPa
+  humidity: number // Relative humidity in percentage
+  dew_point: number // Dew point temperature in Kelvin
+  wind_speed: number // Wind speed in meters per second
+  wind_deg: number // Wind direction in degrees (meteorological)
+  wind_gust?: number // Optional wind gust speed in meters per second (might be missing)
+  weather: any[] // Array of weather condition objects (details not provided in the example)
+  clouds: number // Cloud cover percentage
+  pop: number // Probability of precipitation (0-1)
+  rain?: number // Optional amount of rain in millimeters (might be missing)
+  uvi: number // UV index
+}

@@ -5,12 +5,13 @@ export const getTenDayForecast = async ({
   lat: string
   lon: string
 }) => {
-  const data = await fetch(
-    `https://${process.env.VERCEL_URL}/api/weather/daily_forecast?lat=${lat}&lon=${lon}&appid=${process.env.NEXT_PUBLIC_OPEN_WEATHER_API_KEY}`
-  )
-  if (!data.ok) {
+  try {
+    const data = await fetch(
+      `https://api.openweathermap.org/data/2.5/forecast/daily?lat=${lat}&lon=${lon}&appid=${process.env.NEXT_PUBLIC_OPEN_WEATHER_API_KEY}`
+    )
+
+    return data.json()
+  } catch (error) {
     throw new Error("Failed to fetch data")
   }
-
-  return data.json()
 }

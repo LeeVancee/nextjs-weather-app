@@ -6,13 +6,18 @@ import IconComponent from "../ui/icon-component"
 import { Separator } from "../ui/separator"
 
 interface TenDayForecastProps {
-  data: TenDayForecastData
+  data: any
+  timezone: any
 }
 
-export default function TenDayForecast({ data }: TenDayForecastProps) {
-  const temperatures = data.list.map((item: ForecastData) => item.temp)
-  const minTemperature = Math.min(...temperatures.map((temp) => temp.min))
-  const maxTemperature = Math.max(...temperatures.map((temp) => temp.max))
+export default function TenDayForecast({
+  data,
+  timezone,
+}: TenDayForecastProps) {
+  const temperatures = data.map((item: ForecastData) => item.temp)
+
+  const minTemperature = Math.min(...temperatures.map((temp: any) => temp.min))
+  const maxTemperature = Math.max(...temperatures.map((temp: any) => temp.max))
 
   return (
     <>
@@ -102,20 +107,21 @@ export default function TenDayForecast({ data }: TenDayForecastProps) {
                 />
               </svg>
             </i>
-            10-Day Forecast
+            8-Day Forecast
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-2 text-base font-normal md:mb-1">
-          {data.list.map((item: ForecastData, i) => (
+          {data.map((item: ForecastData, i: number) => (
             <div key={item.dt}>
               <div className="flex w-full flex-row items-center justify-between gap-2 last:mb-0">
                 <p className="min-w-[3rem] font-medium">
                   {i === 0
                     ? "Today"
-                    : convertToDate(data.city.timezone, item.dt, "short")}
+                    : convertToDate(timezone, item.dt, "short")}
                 </p>
                 <IconComponent
                   weatherCode={item.weather[0].id}
+                  icon={item.weather[0].icon}
                   className=" h-8 w-8"
                 />
                 <div className="flex w-[60%] flex-row gap-2 overflow-hidden">
@@ -134,7 +140,7 @@ export default function TenDayForecast({ data }: TenDayForecastProps) {
                   </div>
                 </div>
               </div>
-              {i !== data.list.length - 1 && <Separator className="mt-3" />}
+              {i !== data.length - 1 && <Separator className="mt-3" />}
             </div>
           ))}
         </CardContent>
